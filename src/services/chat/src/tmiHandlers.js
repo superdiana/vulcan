@@ -120,7 +120,11 @@ const tmiHandlers = {
 
     // If this is a moderator, make sure they've been added as a mod
     // for this stream.
-    if (userstate.mod && stream.moderators.indexOf(user._id) === -1) {
+    if (
+      userstate.mod &&
+      stream.moderators &&
+      stream.moderators.find(f => f.login === user.login) === undefined
+    ) {
       socket.emit('onModerator', {
         user,
         stream

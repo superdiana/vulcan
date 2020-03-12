@@ -90,8 +90,8 @@ fetch('/socketio')
 
       body.append(bubble);
 
-      newChatMessage.append(body);
       newChatMessage.append(profile);
+      newChatMessage.append(body);
 
       $('#msg' + id).hide();
       $('.chatBox').append(newChatMessage);
@@ -104,7 +104,7 @@ fetch('/socketio')
       setTimeout(
         function(id) {
           $('#msg' + id).fadeOut('slow', () => {
-            $('#msg' + id).remove();
+            //$('#msg' + id).remove();
           });
         },
         50000,
