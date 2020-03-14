@@ -26,43 +26,43 @@ fetch('/socketio')
       var id = +new Date();
 
       /*
-       * Structure of chat bubble is:
        * chatMessage
-       *   profile
-       *     profileImg
        *   body
-       *     bubble
-       *       io / cheer / moderator (optional)
-       *       message
-       *       name
+       *     profile
+       *     message
+       *   user
        */
 
       var newChatMessage = createChatDiv('chatMessage');
       newChatMessage.id = 'msg' + id.toString();
 
-      var body = createChatDiv('body');
-
       var profile = createChatDiv('profile');
-
       var profileImg = document.createElement('img');
       profileImg.src = chatMessageEventArg.user.profile_image_url;
-
       profile.append(profileImg);
-
-      var bubble = createChatDiv('bubble');
-
-      var name = createChatDiv('name');
-      name.innerText =
-        chatMessageEventArg.user.display_name || chatMessageEventArg.user.login;
 
       var message = createChatDiv('message');
       message.innerHTML = chatMessageEventArg.sanitizedMessage;
+
+      var body = createChatDiv('body');
+      body.append(profile);
+      body.append(message);
+
+      var user = createChatDiv('user');
+      var name = createChatDiv('name');
+      name.innerText =
+        chatMessageEventArg.user.display_name || chatMessageEventArg.user.login;
+      user.append(name);
+
+      newChatMessage.append(body);
+      newChatMessage.append(user);
+
+      var bubble = createChatDiv('bubble');
 
       // If this chat message is from the bot then handle it separately from
       // all other skins
       if (chatMessageEventArg.user.login === 'b3_bot') {
         newChatMessage.classList.add('bot');
-        name.innerText = 'IO';
       }
 
       if (
@@ -71,45 +71,29 @@ fetch('/socketio')
           chatMessageEventArg.userstate.badges.broadcaster)
       ) {
         newChatMessage.classList.add('moderator');
-
-        var moderator = createChatDiv('moderator');
-        moderator.innerHTML = shieldSVG;
-        body.prepend(moderator);
       }
 
       if (chatMessageEventArg.userstate.bits > 0) {
         newChatMessage.classList.add('bits');
-        var cheer = createChatDiv('cheer');
-        cheer.innerHTML =
-          'Cheer for ' + chatMessageEventArg.userstate.bits + ' bits';
-        newChatMessage.append(cheer);
       }
-
-      bubble.append(message);
-      bubble.append(name);
-
-      body.append(bubble);
-
-      newChatMessage.append(profile);
-      newChatMessage.append(body);
 
       $('#msg' + id).hide();
       $('.chatBox').append(newChatMessage);
 
-      animateCSS(newChatMessage, 'zoomInUp', null);
+      // animateCSS(newChatMessage, 'zoomInUp', null);
       calcPositions();
 
       $('#msg' + id).fadeIn('slow');
 
-      setTimeout(
-        function(id) {
-          $('#msg' + id).fadeOut('slow', () => {
-            //$('#msg' + id).remove();
-          });
-        },
-        50000,
-        id
-      );
+      // setTimeout(
+      //   function(id) {
+      //     $('#msg' + id).fadeOut('slow', () => {
+      //       $('#msg' + id).remove();
+      //     });
+      //   },
+      //   50000,
+      //   id
+      // );
     });
   });
 

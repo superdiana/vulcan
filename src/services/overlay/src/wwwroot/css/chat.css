@@ -8,8 +8,6 @@ body {
 }
 
 .chatWrapper {
-  display: table-cell;
-  vertical-align: bottom;
   height: 95vh;
   position: absolute;
   right: 0;
@@ -17,28 +15,33 @@ body {
 }
 
 .chatBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
   max-height: 95vh;
   margin-bottom: 30px;
   overflow: hidden;
 }
 
 .chatMessage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+
   font-size: 18px;
   line-height: 1.4em;
   margin-top: 5px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
   width: 100%;
-  display: none;
 }
 
-.profile {
-  position: absolute;
-  left: -25px;
-  bottom: -30px;
-  border-radius: 25px;
-}
+/*
+* chatMessage
+*   body
+*     profile
+*     message
+*   user
+*/
 
 /* 
 #0B7383
@@ -47,25 +50,16 @@ body {
 #D34C5F 
 */
 
-.profile {
-  /* display: none; */
-}
-
 .profile img {
-  width: 50px;
+  width: 100%;
   background-color: #3c3c3c;
-  border: solid 3px #0b7383;
+  max-width: auto;
 }
 
 .body {
   width: 300px;
-  overflow: hidden;
-}
-
-.bubble {
-  text-align: left;
-  padding: 10px 15px 0px 20px;
   background: #0b7383;
+  padding: 10px 15px 0px 20px;
   color: #fff;
   padding-bottom: 30px;
 }
@@ -85,14 +79,14 @@ code {
   padding: 5px;
 }
 
-.name {
+.user {
   color: rgba(255, 255, 255, 0.3);
   font-size: 24px;
   font-weight: bold;
   position: absolute;
   bottom: 3px;
   right: 15px;
-  text-align: right;
+  text-align: center;
   font-family: 'Titillium Web', sans-serif;
 }
 
@@ -105,11 +99,6 @@ code {
 .moderator {
   position: absolute;
   right: 0;
-}
-
-.moderator svg {
-  width: 50px;
-  height: 100%;
 }
 
 .moderator .strokeColor {
