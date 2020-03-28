@@ -4,16 +4,13 @@
       "authLevel": "anonymous",
       "type": "httpTrigger",
       "direction": "in",
-      "name": "Request",
-      "methods": [
-        "get",
-        "post"
-      ]
+      "name": "req",
+      "methods": ["post"]
     },
     {
       "type": "http",
       "direction": "out",
-      "name": "Response"
+      "name": "res"
     }
   ]
 }
